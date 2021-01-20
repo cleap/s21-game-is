@@ -1,0 +1,9 @@
+[book]
+authors = ["Christopher Leap", "Maxwell McGrael"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Spring 2021 Procedural Generation Independent Study"
+
+[output.html]
+mathjax-support = true
