@@ -5,6 +5,7 @@ onready var texture = get_node("Texture")
 
 const  MAP_WIDTH = 256
 const MAP_HEIGHT = 256
+const RAD = MAP_WIDTH / (2.0*PI)
 
 const DEEP_WATER = 0.2
 const SHALLOW_WATER = 0.4
@@ -25,15 +26,21 @@ const SNOW_COLOR = Color.white
 export var noise: OpenSimplexNoise
 
 func _ready():
+	randomize()
+	generate()
+
+func generate():
+	noise.seed = randi()
 	var tiles: Array = []
 	var min_val: float = INF
 	var max_val: float = -INF
 	
 	var temp1 = []
 	for x in MAP_WIDTH:
+		var theta = lerp(0.0, 2.0*PI, x/float(MAP_WIDTH))
 		var temp2: Array = []
 		for y in MAP_HEIGHT:
-			var val = noise.get_noise_2d(x, y)
+			var val = noise.get_noise_3d(RAD*cos(theta), RAD*sin(theta), y)
 			if val < min_val:
 				min_val = val
 			if val > max_val:
@@ -68,3 +75,7 @@ func get_color(val: float):
 	else:
 		color = SNOW_COLOR
 	return color
+
+func _input(event):
+	if event.is_action_pressed("ui_accept"):
+		generate()

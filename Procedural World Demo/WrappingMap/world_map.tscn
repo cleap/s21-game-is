@@ -5,6 +5,7 @@
 [ext_resource path="res://WrappingMap/Texture.gd" type="Script" id=3]
 
 [sub_resource type="OpenSimplexNoise" id=3]
+seed = 2
 octaves = 6
 period = 45.0
 
