@@ -6,3 +6,5 @@
 - [Procedural Music](./music.md)
 - [Game Demo](./game.md)
   - [Sub Section](./game01.md)
+---
+[References](./references.md)
