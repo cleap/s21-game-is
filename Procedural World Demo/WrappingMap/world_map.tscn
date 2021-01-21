@@ -4,24 +4,24 @@
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://WrappingMap/Texture.gd" type="Script" id=3]
 
-[sub_resource type="OpenSimplexNoise" id=3]
+[sub_resource type="OpenSimplexNoise" id=1]
 seed = 2
 octaves = 6
 period = 45.0
 
-[sub_resource type="PlaneMesh" id=1]
+[sub_resource type="PlaneMesh" id=2]
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="SpatialMaterial" id=3]
 flags_unshaded = true
 albedo_texture = ExtResource( 2 )
 
 [node name="world_map" type="Spatial"]
 script = ExtResource( 1 )
-noise = SubResource( 3 )
+noise = SubResource( 1 )
 
 [node name="Texture" type="MeshInstance" parent="."]
-mesh = SubResource( 1 )
-material/0 = SubResource( 2 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
 script = ExtResource( 3 )
 
 [node name="Camera" type="Camera" parent="."]
