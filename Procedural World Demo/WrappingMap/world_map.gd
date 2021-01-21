@@ -37,10 +37,11 @@ func generate():
 	
 	var temp1 = []
 	for x in MAP_WIDTH:
-		var theta = lerp(0.0, 2.0*PI, x/float(MAP_WIDTH))
+		var theta = 2.0*PI*x/float(MAP_WIDTH)
 		var temp2: Array = []
 		for y in MAP_HEIGHT:
-			var val = noise.get_noise_3d(RAD*cos(theta), RAD*sin(theta), y)
+			var phi = 2.0*PI*y/float(MAP_HEIGHT)
+			var val = noise.get_noise_4d(RAD*cos(theta), RAD*sin(theta), RAD*cos(phi), RAD*sin(phi))
 			if val < min_val:
 				min_val = val
 			if val > max_val:
