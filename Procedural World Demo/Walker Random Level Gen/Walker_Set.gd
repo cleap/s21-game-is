@@ -50,7 +50,7 @@ func change_direction():
 		direction = directions.pop_front()
 
 func create_room(position):
-	var size = Vector2(randi() % 4 + 2, randi() % 4 + 2)
+	var size = Vector2(randi() % 3 + 2, randi() % 3 + 2)
 	var top_left_corner = (position - size/2).ceil()
 	for y in size.y:
 		for x in size.x:
