@@ -1,10 +1,11 @@
 extends Spatial
 
 const Tile = preload("res://WrappingMap/Tile.gd")
-onready var texture = get_node("Texture")
+onready var texture = get_node("Camera/Texture")
+onready var mesh : MeshInstance = get_node("MeshInstance")
 
-const  MAP_WIDTH = 256
-const MAP_HEIGHT = 256
+const  MAP_WIDTH = 64 #256
+const MAP_HEIGHT = MAP_WIDTH #256
 const RAD = MAP_WIDTH / (2.0*PI)
 
 const DEEP_WATER = 0.2
@@ -23,17 +24,22 @@ const FOREST_COLOR = Color(16/255.0, 160/255.0, 0.0, 1.0)
 const ROCK_COLOR = Color(0.5, 0.5, 0.5, 1)
 const SNOW_COLOR = Color.white
 
-export var noise: OpenSimplexNoise
+export var noise : OpenSimplexNoise
+var min_val : float
+var max_val : float
 
 func _ready():
 	randomize()
 	generate()
 
+func get_height(val : float):
+	return val * 10.0
+
 func generate():
 	noise.seed = randi()
 	var tiles: Array = []
-	var min_val: float = INF
-	var max_val: float = -INF
+	min_val = INF
+	max_val = -INF
 	
 	var temp1 = []
 	for x in MAP_WIDTH:
@@ -58,6 +64,7 @@ func generate():
 		tiles.append(temp)
 	
 	texture.update(MAP_WIDTH, MAP_HEIGHT, tiles)
+	generate_mesh()
 
 func get_color(val: float):
 	var color: Color
@@ -77,6 +84,60 @@ func get_color(val: float):
 		color = SNOW_COLOR
 	return color
 
+func get_square(x, y, h):
+	var pts = []
+	var colors = []
+	for i in range(2):
+		for j in range(2):
+			var new_x = x + i*h
+			var new_z = y + j*h
+			var theta = 2.0*PI*new_x/float(MAP_WIDTH)
+			var phi = 2.0*PI*new_z/float(MAP_HEIGHT)
+			var val = noise.get_noise_4d(RAD*cos(theta), RAD*sin(theta), RAD*cos(phi), RAD*sin(phi))
+			new_x -= (h*MAP_WIDTH / 2)
+			new_z -= (h*MAP_HEIGHT / 2)
+			val = (val - min_val) / (max_val - min_val)
+			colors.push_front(get_color(val))
+			pts.push_front(Vector3(new_x, get_height(val), new_z))
+	return [pts, colors]
+
+func generate_mesh():
+	var st: SurfaceTool = SurfaceTool.new()
+	var lod = 1.0
+	
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	
+	for x in range(MAP_WIDTH):
+		for y in range(MAP_HEIGHT):
+			
+			var tmp = get_square(x, y, lod)
+			var square = tmp[0]
+			var colors = tmp[1]
+			
+			st.add_color(colors[0])
+			st.add_vertex(square[0])
+			st.add_color(colors[2])
+			st.add_vertex(square[2])
+			st.add_color(colors[1])
+			st.add_vertex(square[1])
+			
+			st.add_color(colors[1])
+			st.add_vertex(square[1])
+			st.add_color(colors[2])
+			st.add_vertex(square[2])
+			st.add_color(colors[3])
+			st.add_vertex(square[3])
+			
+	
+	st.generate_normals()
+	var triangles = st.commit()
+	mesh.set_mesh(triangles)
+#	mesh.set_surface_material(0, load("res://WrappingMap/map_shader.tres"))
+	
+#	var col_shape: ConcavePolygonShape = ConcavePolygonShape.new()
+#	col_shape.set_faces(triangles.get_faces())
+#	col.set_shape(col_shape)
+
 func _input(event):
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("ui_focus_next"):
 		generate()
