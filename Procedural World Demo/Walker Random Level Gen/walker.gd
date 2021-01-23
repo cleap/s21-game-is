@@ -1,6 +1,9 @@
 extends Node2D
 
-var borders = Rect2(3, 3, 28, 15)
+const testPlayer = preload("res://Walker Random Level Gen/testPlayer.tscn")
+const exitDoor = preload("res://Walker Random Level Gen/exitDoor.tscn")
+
+var borders = Rect2(1, 1, 38, 21)
 
 onready var tileMap = $TileMap
 
@@ -9,13 +12,26 @@ func _ready():
 	generate_level()
 
 func generate_level():
-	var walker = Walker.new(Vector2(14, 7), borders)
-	var map = walker.walk(100)
+	var walker = Walker.new(Vector2(19, 11), borders)
+	var map = walker.walk(200)
+	
+	var player = testPlayer.instance()
+	#add_child(player)
+	#player.position = map.front() * 32
+	
+	var exit = exitDoor.instance()
+	#add_child(exit)
+	#exit.position = walker.get_end_room().position * 32
+	#exit.connect("leaving_level", self, "reload_level")
+	
 	walker.queue_free()
 	for location in map:
 		tileMap.set_cellv(location, -1)
 	tileMap.update_bitmask_region(borders.position, borders.end)
 
+func reload_level():
+	get_tree().reload_current_scene()
+
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
-		get_tree().reload_current_scene()
+		reload_level()
