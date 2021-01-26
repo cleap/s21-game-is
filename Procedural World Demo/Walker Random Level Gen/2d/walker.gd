@@ -1,7 +1,7 @@
 extends Node2D
 
-const testPlayer = preload("res://Walker Random Level Gen/testPlayer.tscn")
-const exitDoor = preload("res://Walker Random Level Gen/exitDoor.tscn")
+const testPlayer = preload("res://Walker Random Level Gen/2d/testPlayer.tscn")
+const exitDoor = preload("res://Walker Random Level Gen/2d/exitDoor.tscn")
 
 var borders = Rect2(1, 1, 30, 17)
 

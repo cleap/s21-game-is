@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Walker",
 "language": "GDScript",
-"path": "res://Walker Random Level Gen/Walker_Set.gd"
+"path": "res://Walker Random Level Gen/2d/Walker_Set.gd"
 }, {
 "base": "Node",
 "class": "Walker3D",
