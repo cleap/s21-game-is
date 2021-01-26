@@ -4,16 +4,17 @@ const Tile = preload("res://WrappingMap/Tile.gd")
 onready var texture = get_node("Camera/Texture")
 onready var mesh : MeshInstance = get_node("MeshInstance")
 
-const  MAP_WIDTH = 64 #256
+const  MAP_WIDTH = 32 #256
 const MAP_HEIGHT = MAP_WIDTH #256
-const RAD = MAP_WIDTH / (2.0*PI)
+const TILE_WIDTH = 16.0
+const RAD = TILE_WIDTH * MAP_WIDTH / (2.0*PI)
 
 const DEEP_WATER = 0.2
 const SHALLOW_WATER = 0.4
 const SAND = 0.5
 const GRASS = 0.7
 const FOREST = 0.8
-const ROCK = 0.9
+const ROCK = 0.95
 const SNOW = 1.0
 
 const DEEP_COLOR = Color(0, 0, 0.5, 1.0)
@@ -33,7 +34,13 @@ func _ready():
 	generate()
 
 func get_height(val : float):
-	return val * 10.0
+	if val <= SHALLOW_WATER:
+		return 0.0
+	elif val <= SAND:
+		return (val - SHALLOW_WATER) * 5.0
+	elif val <= FOREST:
+		return (val - SAND) * 10.0 + (SAND - SHALLOW_WATER) * 5.0
+	return (pow(10.0*val, (val - FOREST)) - 1.0) * 30.0 + (FOREST - SAND) * 10.0 + (SAND - SHALLOW_WATER) * 5.0
 
 func generate():
 	noise.seed = randi()
@@ -84,18 +91,18 @@ func get_color(val: float):
 		color = SNOW_COLOR
 	return color
 
-func get_square(x, y, h):
+func get_square(x, y, lod):
 	var pts = []
 	var colors = []
 	for i in range(2):
 		for j in range(2):
-			var new_x = x + i*h
-			var new_z = y + j*h
-			var theta = 2.0*PI*new_x/float(MAP_WIDTH)
-			var phi = 2.0*PI*new_z/float(MAP_HEIGHT)
+			var new_x = TILE_WIDTH*(x + i)/lod
+			var new_z = TILE_WIDTH*(y + j)/lod
+			var theta = 2.0*PI*new_x/float(MAP_WIDTH * TILE_WIDTH)
+			var phi = 2.0*PI*new_z/float(MAP_HEIGHT * TILE_WIDTH)
 			var val = noise.get_noise_4d(RAD*cos(theta), RAD*sin(theta), RAD*cos(phi), RAD*sin(phi))
-			new_x -= (h*MAP_WIDTH / 2)
-			new_z -= (h*MAP_HEIGHT / 2)
+			new_x -= (TILE_WIDTH * MAP_WIDTH / (2.0))
+			new_z -= (TILE_WIDTH * MAP_HEIGHT / (2.0))
 			val = (val - min_val) / (max_val - min_val)
 			colors.push_front(get_color(val))
 			pts.push_front(Vector3(new_x, get_height(val), new_z))
@@ -103,12 +110,12 @@ func get_square(x, y, h):
 
 func generate_mesh():
 	var st: SurfaceTool = SurfaceTool.new()
-	var lod = 1.0
+	var lod = 16.0
 	
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	
-	for x in range(MAP_WIDTH):
-		for y in range(MAP_HEIGHT):
+	for x in range(MAP_WIDTH * lod):
+		for y in range(MAP_HEIGHT * lod):
 			
 			var tmp = get_square(x, y, lod)
 			var square = tmp[0]
