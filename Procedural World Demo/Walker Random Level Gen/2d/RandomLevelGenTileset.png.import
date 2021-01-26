@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/RandomLevelGenTileset.png-fff5a3919f9241e40701fa67d751db8a.stex"
+path="res://.import/RandomLevelGenTileset.png-05dde2b15ccef26f96b53acdb52669fc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Walker Random Level Gen/RandomLevelGenTileset.png"
-dest_files=[ "res://.import/RandomLevelGenTileset.png-fff5a3919f9241e40701fa67d751db8a.stex" ]
+source_file="res://Walker Random Level Gen/2d/RandomLevelGenTileset.png"
+dest_files=[ "res://.import/RandomLevelGenTileset.png-05dde2b15ccef26f96b53acdb52669fc.stex" ]
 
 [params]
 
