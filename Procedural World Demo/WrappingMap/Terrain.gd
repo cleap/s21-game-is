@@ -1,4 +1,5 @@
 extends Spatial
+class_name Terrain
 
 const Tile = preload("res://WrappingMap/Tile.gd")
 onready var texture = get_node("Camera/Texture")
@@ -29,9 +30,14 @@ export var noise : OpenSimplexNoise
 var min_val : float
 var max_val : float
 
+func _init():
+	noise = OpenSimplexNoise.new()
+	noise.period = 150.0
+	randomize()
+
 func _ready():
 	randomize()
-	generate()
+	generate(mesh)
 
 func get_height(val : float):
 	if val <= SHALLOW_WATER:
@@ -42,7 +48,7 @@ func get_height(val : float):
 		return (val - SAND) * 10.0 + (SAND - SHALLOW_WATER) * 5.0
 	return (pow(10.0*val, (val - FOREST)) - 1.0) * 30.0 + (FOREST - SAND) * 10.0 + (SAND - SHALLOW_WATER) * 5.0
 
-func generate():
+func generate(mesh: MeshInstance):
 	noise.seed = randi()
 	var tiles: Array = []
 	min_val = INF
@@ -70,8 +76,8 @@ func generate():
 			temp.append(Tile.new(get_color(val)))
 		tiles.append(temp)
 	
-	texture.update(MAP_WIDTH, MAP_HEIGHT, tiles)
-	generate_mesh()
+#	texture.update(MAP_WIDTH, MAP_HEIGHT, tiles)
+	generate_mesh(mesh)
 
 func get_color(val: float):
 	var color: Color
@@ -108,7 +114,7 @@ func get_square(x, y, lod):
 			pts.push_front(Vector3(new_x, get_height(val), new_z))
 	return [pts, colors]
 
-func generate_mesh():
+func generate_mesh(mesh: MeshInstance):
 	var st: SurfaceTool = SurfaceTool.new()
 	var lod = 16.0
 	
@@ -145,6 +151,12 @@ func generate_mesh():
 #	col_shape.set_faces(triangles.get_faces())
 #	col.set_shape(col_shape)
 
+func get_locations(reqs: Array):
+	return []
+
+func place_villages(villages: Array):
+	pass
+
 func _input(event):
 	if event.is_action_pressed("ui_focus_next"):
-		generate()
+		generate(mesh)

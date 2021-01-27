@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://WrappingMap/world_map.gd" type="Script" id=1]
+[ext_resource path="res://WrappingMap/Terrain.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://WrappingMap/Texture.gd" type="Script" id=3]
 [ext_resource path="res://WrappingMap/Camera.gd" type="Script" id=4]
@@ -10,7 +10,7 @@ seed = 2
 octaves = 6
 period = 150.0
 
-[sub_resource type="Environment" id=5]
+[sub_resource type="Environment" id=2]
 background_mode = 1
 background_color = Color( 0.584314, 0.901961, 1, 1 )
 ambient_light_color = Color( 0.662745, 0.662745, 0.662745, 1 )
@@ -21,13 +21,13 @@ fog_depth_begin = 50.0
 fog_depth_end = 200.0
 fog_depth_curve = 2.14354
 
-[sub_resource type="PlaneMesh" id=2]
+[sub_resource type="PlaneMesh" id=3]
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=4]
 flags_unshaded = true
 albedo_texture = ExtResource( 2 )
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=5]
 vertex_color_use_as_albedo = true
 
 [sub_resource type="CapsuleMesh" id=6]
@@ -39,19 +39,19 @@ noise = SubResource( 1 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.715534, 0.698578, 0, -0.698578, 0.715534, 0, 14.7764, 10.3388 )
-environment = SubResource( 5 )
+environment = SubResource( 2 )
 size = 3.0
 far = 300.0
 script = ExtResource( 4 )
 
 [node name="Texture" type="MeshInstance" parent="Camera"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 3.573, -1.682, -3.844 )
-mesh = SubResource( 2 )
-material/0 = SubResource( 3 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
 script = ExtResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-material_override = SubResource( 4 )
+material_override = SubResource( 5 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.5, 0.75, -0.433013, 0, 0.5, 0.866025, 0.866025, -0.433013, 0.25, 0, 0, 0 )

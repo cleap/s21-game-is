@@ -9,6 +9,36 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Spatial",
+"class": "Cave",
+"language": "GDScript",
+"path": "res://Walker Random Level Gen/3d/walker_3d.gd"
+}, {
+"base": "Spatial",
+"class": "Terrain",
+"language": "GDScript",
+"path": "res://WrappingMap/Terrain.gd"
+}, {
+"base": "Node",
+"class": "Village",
+"language": "GDScript",
+"path": "res://Walker Random Level Gen/3d/Village.gd"
+}, {
+"base": "Node",
+"class": "VillagePlacement",
+"language": "GDScript",
+"path": "res://VillagePlacement.gd"
+}, {
+"base": "Node",
+"class": "VillagePlot",
+"language": "GDScript",
+"path": "res://VillagePlot.gd"
+}, {
+"base": "Node",
+"class": "VillageReq",
+"language": "GDScript",
+"path": "res://VillageReq.gd"
+}, {
 "base": "Node",
 "class": "Walker",
 "language": "GDScript",
@@ -20,6 +50,12 @@ _global_script_classes=[ {
 "path": "res://Walker Random Level Gen/3d/walker_setup.gd"
 } ]
 _global_script_class_icons={
+"Cave": "",
+"Terrain": "",
+"Village": "",
+"VillagePlacement": "",
+"VillagePlot": "",
+"VillageReq": "",
 "Walker": "",
 "Walker3D": ""
 }
@@ -27,17 +63,40 @@ _global_script_class_icons={
 [application]
 
 config/name="Procedural World Demo"
+run/main_scene="res://root.tscn"
 config/icon="res://icon.png"
 
 [display]
 
-window/size/test_width=1024
-window/size/test_height=600
+window/size/width=1280
+window/size/height=720
+window/size/test_width=1280
+window/size/test_height=720
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
 [input]
 
+move_forward={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_backward={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
+}
 move_jump={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
