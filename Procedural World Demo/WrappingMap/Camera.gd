@@ -35,8 +35,8 @@ func _process(delta):
 	input.z += Input.get_action_strength("move_backward")
 	input.x -= Input.get_action_strength("move_left")
 	input.x += Input.get_action_strength("move_right")
-	input.y += Input.get_action_strength("jump")
-	input.y -= Input.get_action_strength("crouch")
+	input.y += Input.get_action_strength("move_jump")
+	input.y -= Input.get_action_strength("move_crouch")
 	if input.length_squared() > 1.0:
 		input = input.normalized()
 	

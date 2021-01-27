@@ -1,5 +1,5 @@
 extends Spatial
-
+class_name Cave
 #const testPlayer = preload("res://Walker Random Level Gen/testPlayer.tscn")
 #const exitDoor = preload("res://Walker Random Level Gen/exitDoor.tscn")
 
@@ -11,9 +11,20 @@ var boxes: Array = []
 
 func _ready():
 	randomize()
-	generate_level()
+	generate_level("normal")
 
-func generate_level():
+func generate_level(size: String):
+	
+	if size == "small":
+		pass
+	elif size == "normal":
+		pass
+	elif size == "large":
+		pass
+	else:
+		print("ERROR: I don't recognize that level size")
+		return
+	
 	var walker = Walker3D.new(Vector2(WIDTH/2, HEIGHT/2), borders)
 	var map = walker.walk(200)
 	
@@ -46,4 +57,3 @@ func reload_level():
 func _input(event):
 	if event.is_action_pressed("ui_focus_next"):
 		reload_level()
-
