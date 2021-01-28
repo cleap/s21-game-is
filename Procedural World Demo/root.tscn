@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://root.gd" type="Script" id=1]
-[ext_resource path="res://WrappingMap/Camera.gd" type="Script" id=2]
+[ext_resource path="res://FlyCam.gd" type="Script" id=2]
+[ext_resource path="res://environment.tres" type="Environment" id=3]
 
 [sub_resource type="SpatialMaterial" id=1]
 vertex_color_use_as_albedo = true
@@ -13,10 +14,15 @@ script = ExtResource( 1 )
 material_override = SubResource( 1 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.91424, 0.307508, -0.263827, 0, 0.651145, 0.758953, 0.405174, -0.693865, 0.595303, 0, 0, 0 )
+transform = Transform( 0.540651, 0.728541, -0.420623, 0, 0.5, 0.866025, 0.841247, -0.468218, 0.270326, 0, 0, 0 )
+light_energy = 0.91
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 0 )
-fov = 75.0
-far = 300.0
+[node name="FlyCam" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0 )
 script = ExtResource( 2 )
+
+[node name="Camera" type="Camera" parent="FlyCam"]
+transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0 )
+environment = ExtResource( 3 )
+fov = 75.0
+far = 500.0

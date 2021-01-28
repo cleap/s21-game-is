@@ -1,0 +1,11 @@
+[gd_resource type="Environment" format=2]
+
+[resource]
+background_mode = 1
+background_color = Color( 0.584314, 0.901961, 1, 1 )
+ambient_light_color = Color( 0.662745, 0.662745, 0.662745, 1 )
+fog_color = Color( 0.584314, 0.901961, 1, 1 )
+fog_sun_amount = 0.29
+fog_depth_begin = 50.0
+fog_depth_end = 200.0
+fog_depth_curve = 2.14354

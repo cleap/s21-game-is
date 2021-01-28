@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Procedural Music (PM) - Spring 2021 Procedural Generation Independent Study</title>
+        <title>Procedural World Generation (PWG) - Spring 2021 Procedural Generation Independent Study</title>
         
         
 
@@ -18,28 +18,28 @@
         <meta name="theme-color" content="#ffffff" />
 
         
-        <link rel="icon" href="favicon.svg">
+        <link rel="icon" href="../favicon.svg">
         
         
-        <link rel="shortcut icon" href="favicon.png">
+        <link rel="shortcut icon" href="../favicon.png">
         
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
         
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="stylesheet" href="../css/print.css" media="print">
         
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
         
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
         
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         
@@ -52,7 +52,7 @@
     <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
@@ -98,7 +98,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="world/world_intro.html"><strong aria-hidden="true">2.</strong> Procedural World Generation (PWG)</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="world/world_what.html"><strong aria-hidden="true">2.1.</strong> What Can PWG Do?</a></li><li class="chapter-item expanded "><a href="world/world_us.html"><strong aria-hidden="true">2.2.</strong> How We Used PWG</a></li><li class="chapter-item expanded "><a href="world/world_resources.html"><strong aria-hidden="true">2.3.</strong> Going Further</a></li></ol></li><li class="chapter-item expanded "><a href="animation.html"><strong aria-hidden="true">3.</strong> Procedural Animation (PA)</a></li><li class="chapter-item expanded "><a href="music.html" class="active"><strong aria-hidden="true">4.</strong> Procedural Music (PM)</a></li><li class="chapter-item expanded "><a href="game.html"><strong aria-hidden="true">5.</strong> Game Demo</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><a href="references.html">References</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../world/world_intro.html" class="active"><strong aria-hidden="true">2.</strong> Procedural World Generation (PWG)</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../world/world_what.html"><strong aria-hidden="true">2.1.</strong> What Can PWG Do?</a></li><li class="chapter-item expanded "><a href="../world/world_us.html"><strong aria-hidden="true">2.2.</strong> How We Used PWG</a></li><li class="chapter-item expanded "><a href="../world/world_resources.html"><strong aria-hidden="true">2.3.</strong> Going Further</a></li></ol></li><li class="chapter-item expanded "><a href="../animation.html"><strong aria-hidden="true">3.</strong> Procedural Animation (PA)</a></li><li class="chapter-item expanded "><a href="../music.html"><strong aria-hidden="true">4.</strong> Procedural Music (PM)</a></li><li class="chapter-item expanded "><a href="../game.html"><strong aria-hidden="true">5.</strong> Game Demo</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><a href="../references.html">References</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -134,7 +134,7 @@
 
                     <div class="right-buttons">
                         
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         
@@ -166,20 +166,31 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#procedural-music" id="procedural-music">Procedural Music</a></h1>
+                        <h1><a class="header" href="#world-generation" id="world-generation">World Generation</a></h1>
+<p>In this chapter, we will cover (1) what procedural world generation can do and who uses procedural world generation, (2) how we implemented procedural world generation to fit our needs, and (3) provide some resources to go beyond what we have done here.</p>
+<hr />
+<p>To fill space, here's a derivation of the golden ratio:</p>
+<p>\[ \frac{a + b}{a} = \frac{a}{b} \]
+\[ ab + b^2 = a^2 \]
+\[ a^2 - ab - b^2 = 0 \]
+\[ a = \frac{b \pm \sqrt{b^2 - 4(-b^2)}}{2} \]
+\[ a = \frac{b \pm \sqrt{5b^2}}{2} \]
+\[ a = \frac{b \pm b\sqrt{5}}{2} \]
+Let \( b=1\), and let's choose \(a\) to be positive.
+\[ a = \frac{1 + \sqrt{5}}{2} \]</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="animation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="game.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../world/world_what.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -191,13 +202,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="animation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="game.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../world/world_what.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -220,14 +231,14 @@
         
 
         
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
         
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
         

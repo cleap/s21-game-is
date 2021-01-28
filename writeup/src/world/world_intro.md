@@ -1,5 +1,11 @@
 # World Generation
 
+In this chapter, we will cover (1) what procedural world generation can do and who uses procedural world generation, (2) how we implemented procedural world generation to fit our needs, and (3) provide some resources to go beyond what we have done here.
+
+---
+
+To fill space, here's a derivation of the golden ratio:
+
 \\[ \frac{a + b}{a} = \frac{a}{b} \\]
 \\[ ab + b^2 = a^2 \\]
 \\[ a^2 - ab - b^2 = 0 \\]
