@@ -13,7 +13,7 @@ const RAD = TILE_WIDTH * MAP_WIDTH / (2.0*PI)
 const DEEP_WATER = 0.2
 const SHALLOW_WATER = 0.4
 const SAND = 0.5
-const GRASS = 0.7
+const GRASS = 0.65
 const FOREST = 0.8
 const ROCK = 0.95
 const SNOW = 1.0
@@ -40,13 +40,17 @@ func _ready():
 	generate(mesh)
 
 func get_height(val : float):
+	
+	var sand_mult = 20.0
+	var grass_mult = 40.0
+	
 	if val <= SHALLOW_WATER:
 		return 0.0
 	elif val <= SAND:
-		return (val - SHALLOW_WATER) * 5.0
+		return (val - SHALLOW_WATER) * sand_mult
 	elif val <= FOREST:
-		return (val - SAND) * 10.0 + (SAND - SHALLOW_WATER) * 5.0
-	return (pow(10.0*val, (val - FOREST)) - 1.0) * 30.0 + (FOREST - SAND) * 10.0 + (SAND - SHALLOW_WATER) * 5.0
+		return (val - SAND) * grass_mult + (SAND - SHALLOW_WATER) * sand_mult
+	return (pow(10.0*val, (val - FOREST)) - 1.0) * 50.0 + (FOREST - SAND) * grass_mult + (SAND - SHALLOW_WATER) * sand_mult
 
 func generate(mesh: MeshInstance):
 	noise.seed = randi()
@@ -116,7 +120,7 @@ func get_square(x, y, lod):
 
 func generate_mesh(mesh: MeshInstance):
 	var st: SurfaceTool = SurfaceTool.new()
-	var lod = 16.0
+	var lod = 4.0 #16.0
 	
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	

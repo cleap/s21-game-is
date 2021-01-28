@@ -100,7 +100,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="world.html"><strong aria-hidden="true">2.</strong> World Generation</a></li><li class="chapter-item expanded "><a href="animation.html"><strong aria-hidden="true">3.</strong> Procedural Animation</a></li><li class="chapter-item expanded "><a href="music.html"><strong aria-hidden="true">4.</strong> Procedural Music</a></li><li class="chapter-item expanded "><a href="game.html"><strong aria-hidden="true">5.</strong> Game Demo</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="game01.html"><strong aria-hidden="true">5.1.</strong> Sub Section</a></li><li class="spacer"></li></ol></li><li class="chapter-item expanded "><a href="references.html">References</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="world/world_intro.html"><strong aria-hidden="true">2.</strong> Procedural World Generation (PWG)</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="world/world_what.html"><strong aria-hidden="true">2.1.</strong> What Can PWG Do?</a></li><li class="chapter-item expanded "><a href="world/world_us.html"><strong aria-hidden="true">2.2.</strong> How We Used PWG</a></li><li class="chapter-item expanded "><a href="world/world_resources.html"><strong aria-hidden="true">2.3.</strong> Going Further</a></li></ol></li><li class="chapter-item expanded "><a href="animation.html"><strong aria-hidden="true">3.</strong> Procedural Animation (PA)</a></li><li class="chapter-item expanded "><a href="music.html"><strong aria-hidden="true">4.</strong> Procedural Music (PM)</a></li><li class="chapter-item expanded "><a href="game.html"><strong aria-hidden="true">5.</strong> Game Demo</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><a href="references.html">References</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -172,6 +172,9 @@
 <p>Procedural generation is a powerful tool that can be used to create specific, unique, and immersive content on a case by case basis, as opposed to hand-crafting every facet of the game. This allows game developers to create systems to give their players infinite or unique worlds to play in, character animations that adapt to their environments, music that changes to fit the mood, and much more. Popular games such as Minecraft, Spelunky, the Binding of Isaac, No Man’s Sky, and many others leverage random number generators with procedural techniques to generate their levels and worlds so that each playthrough is unique. Procedural animation is used in countless games for everything from turning a player's head to generating smoke to ragdoll physics. For a game development company, the ability to create procedural systems allows for more flexible content that can, in turn, make a more immersive and enjoyable player experience.</p>
 <p>This independent study will focus on three types of procedural content: procedural world/level generation, procedural animation, and procedural music. For each of these three facets of procedural content, we will gather resources and present them on a webpage to make the learning process easier for future game developers and present a small-scale demo to demonstrate one of the techniques. At the end of the semester, we will make a small game demo that utilizes techniques from all three disciplines of procedural content that we will present to a public audience.</p>
 <h1><a class="header" href="#world-generation" id="world-generation">World Generation</a></h1>
+<p>In this chapter, we will cover (1) what procedural world generation can do and who uses procedural world generation, (2) how we implemented procedural world generation to fit our needs, and (3) provide some resources to go beyond what we have done here.</p>
+<hr />
+<p>To fill space, here's a derivation of the golden ratio:</p>
 <p>\[ \frac{a + b}{a} = \frac{a}{b} \]
 \[ ab + b^2 = a^2 \]
 \[ a^2 - ab - b^2 = 0 \]
@@ -180,12 +183,42 @@
 \[ a = \frac{b \pm b\sqrt{5}}{2} \]
 Let \( b=1\), and let's choose \(a\) to be positive.
 \[ a = \frac{1 + \sqrt{5}}{2} \]</p>
-<h1><a class="header" href="#procedural-animation" id="procedural-animation">Procedural Animation</a></h1>
-<h1><a class="header" href="#procedural-music" id="procedural-music">Procedural Music</a></h1>
-<h1><a class="header" href="#game-demo" id="game-demo">Game Demo</a></h1>
-<h1><a class="header" href="#sub-section" id="sub-section">Sub Section</a></h1>
-<h1><a class="header" href="#references" id="references">References</a></h1>
-<h2><a class="header" href="#procedural-world-generation" id="procedural-world-generation">Procedural World Generation</a></h2>
+<h1><a class="header" href="#what-can-procedural-world-generation-do" id="what-can-procedural-world-generation-do">What can procedural world generation do?</a></h1>
+<p>In this section, we will define procedural world generation (PWG) and show a few examples of how different games leverage procedural world generation. </p>
+<h2><a class="header" href="#definition" id="definition">Definition</a></h2>
+<p>Procedural world generation is asdlkjgijeijaisef...</p>
+<h2><a class="header" href="#pwg-in-the-flesh" id="pwg-in-the-flesh">PWG in the flesh</a></h2>
+<h3><a class="header" href="#rogue" id="rogue"><strong>Rogue</strong></a></h3>
+<h3><a class="header" href="#the-binding-of-isaac" id="the-binding-of-isaac"><strong>The Binding of Isaac</strong></a></h3>
+<h3><a class="header" href="#spelunky" id="spelunky"><strong>Spelunky</strong></a></h3>
+<h3><a class="header" href="#minecraft" id="minecraft"><strong>Minecraft</strong></a></h3>
+<p>Below is a video by Antvenom on YouTube. In this video, Antvenom describes the process that generates Minecraft's levels.</p>
+<div class="vidwrapper">
+    <div calss="vidcontainer">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/FE5S2NeD7uU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+    </div>
+</div>
+<h3><a class="header" href="#no-mans-sky" id="no-mans-sky"><strong>No Man's Sky</strong></a></h3>
+<h1><a class="header" href="#how-we-used-procedural-world-generation" id="how-we-used-procedural-world-generation">How we used procedural world generation</a></h1>
+<p>In this section, we describe the different procedural world generation techniques we used to generate worlds.</p>
+<h2><a class="header" href="#terrain-generation" id="terrain-generation">Terrain Generation</a></h2>
+<iframe src="https://itch.io/embed/897492" height="167" width="552" frameborder="0"><a href="https://cleap.itch.io/procedural-world-generation-demo">Procedural World Generation Demo by Christopher Leap</a></iframe>
+<p><strong>Include screenshot of terrain here</strong></p>
+<p>For our purposes, the process of generating the terrain was split into three parts:</p>
+<ol>
+<li>Generate a world map</li>
+<li>Generate a terrain height map based off of the world map</li>
+<li>Place trees, rocks, grass, etc. around the terrain</li>
+</ol>
+<p><img src="http://www.jgallant.com/wp-content/uploads/2016/01/wrap1.png" alt="JGallant's wrapping map"></img></p>
+<p>OpenSimplex noise, JGallant, ...</p>
+<h2><a class="header" href="#village-creation" id="village-creation">Village creation</a></h2>
+<p>Random walker, ...</p>
+<h2><a class="header" href="#combining-the-two" id="combining-the-two">Combining the two</a></h2>
+<p>Minecraft, systems, ...</p>
+<h1><a class="header" href="#going-further" id="going-further">Going Further</a></h1>
+<p>Here are some of the resources we gathered during this portion of the project. Feel free to explore them to your heart's content.</p>
+<hr />
 <p>Antvenom. How do Minecraft Worlds Generate? <a href="https://www.youtube.com/watch?v=FE5S2NeD7uU">Youtube</a>.</p>
 <blockquote>
 <p>Antvenom looks describes how Minecraft worlds are generated. Should probably find a more primary source if possible.</p>
@@ -193,6 +226,14 @@ Let \( b=1\), and let's choose \(a\) to be positive.
 <p>GDQuest. Godot Procedural Generation. <a href="https://github.com/GDQuest/godot-procedural-generation">Github</a>.</p>
 <blockquote>
 <p>Here GDQuest has code for different 2d procedural world generation techniques for Godot. A good open-source repository that we can use in our own project. </p>
+</blockquote>
+<p>HeartBeast. Random Level Generation with Walker - Godot Tutorial <a href="https://www.youtube.com/watch?v=2nk6bJBTtlA&amp;list=PL9FzW-m48fn1te9MJgxmmaiKtOytFIRo3&amp;index=1">Youtube</a>.</p>
+<blockquote>
+<p>In this 3 part series HeartBeast goes over the process of creating a walker to creat random levels in a 2D games.</p>
+</blockquote>
+<p>javidx9. Procedural Generation: Programing the Universe <a href="https://www.youtube.com/watch?v=ZZY9YE7rZJw">Youtube</a>.</p>
+<blockquote>
+<p>User javidx9 walks through the process of making a procedurally generated universe similar to “the Elite” series of games. With all stars being able to show their solar systems and use as little memory as possible.</p>
 </blockquote>
 <p>JGallant. Procedurally Generated Wrapping World Maps in Unity C#. <a href="http://www.jgallant.com/procedurally-generating-wrapping-world-maps-in-unity-csharp-part-1/">JGallant</a>.</p>
 <blockquote>
@@ -206,13 +247,42 @@ Let \( b=1\), and let's choose \(a\) to be positive.
 <blockquote>
 <p>Innes McKendrick talks about how No Man’s Sky generates their worlds.</p>
 </blockquote>
-<p>Procedural Generation: Programing the Universe <a href="https://www.youtube.com/watch?v=ZZY9YE7rZJw">Youtube</a>.</p>
+<p>Tyroller, Jonas. How to Randomly Generate Levels (and Islands). <a href="https://www.youtube.com/watch?v=O9J_Cfl6HzE">Youtube</a>.</p>
+<blockquote>
+<p>Jonas talks about how his team procedurally generated the worlds in their game, ISLANDERS.</p>
+</blockquote>
+<h1><a class="header" href="#procedural-animation" id="procedural-animation">Procedural Animation</a></h1>
+<h1><a class="header" href="#procedural-music" id="procedural-music">Procedural Music</a></h1>
+<h1><a class="header" href="#game-demo" id="game-demo">Game Demo</a></h1>
+<h1><a class="header" href="#references" id="references">References</a></h1>
+<h2><a class="header" href="#procedural-world-generation" id="procedural-world-generation">Procedural World Generation</a></h2>
+<p>Antvenom. How do Minecraft Worlds Generate? <a href="https://www.youtube.com/watch?v=FE5S2NeD7uU">Youtube</a>.</p>
+<blockquote>
+<p>Antvenom looks describes how Minecraft worlds are generated. Should probably find a more primary source if possible.</p>
+</blockquote>
+<p>GDQuest. Godot Procedural Generation. <a href="https://github.com/GDQuest/godot-procedural-generation">Github</a>.</p>
+<blockquote>
+<p>Here GDQuest has code for different 2d procedural world generation techniques for Godot. A good open-source repository that we can use in our own project. </p>
+</blockquote>
+<p>HeartBeast. Random Level Generation with Walker - Godot Tutorial <a href="https://www.youtube.com/watch?v=2nk6bJBTtlA&amp;list=PL9FzW-m48fn1te9MJgxmmaiKtOytFIRo3&amp;index=1">Youtube</a>.</p>
+<blockquote>
+<p>In this 3 part series HeartBeast goes over the process of creating a walker to creat random levels in a 2D games.</p>
+</blockquote>
+<p>javidx9. Procedural Generation: Programing the Universe <a href="https://www.youtube.com/watch?v=ZZY9YE7rZJw">Youtube</a>.</p>
 <blockquote>
 <p>User javidx9 walks through the process of making a procedurally generated universe similar to “the Elite” series of games. With all stars being able to show their solar systems and use as little memory as possible.</p>
 </blockquote>
-<p>Random Level Generation with Walker - Godot Tutorial <a href="https://www.youtube.com/watch?v=2nk6bJBTtlA&amp;list=PL9FzW-m48fn1te9MJgxmmaiKtOytFIRo3&amp;index=1">Youtube</a>.</p>
+<p>JGallant. Procedurally Generated Wrapping World Maps in Unity C#. <a href="http://www.jgallant.com/procedurally-generating-wrapping-world-maps-in-unity-csharp-part-1/">JGallant</a>.</p>
 <blockquote>
-<p>In this 3 part series Benjamin goes over the process of creating a walker to creat random levels in a 2D games.</p>
+<p>JGallant describes how to procedurally generate wrapping world maps in Unity.</p>
+</blockquote>
+<p>Lague, Sebastian. Procedural Terrain Generation. <a href="https://www.youtube.com/playlist?list=PLFt_AvWsXl0eBW2EiBtl_sxmDtSgZBxB3">Youtube</a>.</p>
+<blockquote>
+<p>A Youtube tutorial where Sebastian Lague implements procedural terrain generation in Unity. </p>
+</blockquote>
+<p>McKendrick, Innes. Continuous World Generation in No Man’s Sky. GDC. <a href="https://www.youtube.com/watch?v=sCRzxEEcO2Y">Youtube</a>.</p>
+<blockquote>
+<p>Innes McKendrick talks about how No Man’s Sky generates their worlds.</p>
 </blockquote>
 <p>Tyroller, Jonas. How to Randomly Generate Levels (and Islands). <a href="https://www.youtube.com/watch?v=O9J_Cfl6HzE">Youtube</a>.</p>
 <blockquote>

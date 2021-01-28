@@ -1,16 +1,15 @@
 extends Camera
 
-var look_sensitivity: float = 100.0
+var look_sensitivity: float = 75.0
 var min_look_angle: float = -90.0
 var max_look_angle: float = 90.0
 var move_speed: float = 10.0
-var enabled: bool = true
+var enabled: bool = false
 var mouse_delta: Vector2 = Vector2()
 var rot: Vector3 = Vector3()
 
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
+#func _ready():
+#	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 func _input(event):
 	if enabled and event is InputEventMouseMotion:
 		mouse_delta = event.relative
@@ -20,6 +19,9 @@ func _input(event):
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		enabled = not enabled
+	if not enabled and event is InputEventMouseButton:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		enabled = true
 
 func _process(delta):
 	var rot_target = Vector3(mouse_delta.y, mouse_delta.x, 0)

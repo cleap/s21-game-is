@@ -1,10 +1,12 @@
 # Summary
 
 - [Introduction](./intro.md)
-- [World Generation](./world.md)
-- [Procedural Animation](./animation.md)
-- [Procedural Music](./music.md)
+- [Procedural World Generation (PWG)](./world/world_intro.md)
+  - [What Can PWG Do?](./world/world_what.md)
+  - [How We Used PWG](./world/world_us.md)
+  - [Going Further](./world/world_resources.md)
+- [Procedural Animation (PA)](./animation.md)
+- [Procedural Music (PM)](./music.md)
 - [Game Demo](./game.md)
-  - [Sub Section](./game01.md)
 ---
 [References](./references.md)
