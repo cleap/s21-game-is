@@ -1,34 +1,38 @@
 extends Spatial
 
 const NUM_VILLAGES = 3
-
-onready var mesh = get_node("MeshInstance")
+const Terrain_Scene = preload("res://Terrain.tscn")
 var terrain: Terrain
 
 # Called when the node enters the scene tree for the first time.
+
 func _ready():
-	terrain = Terrain.new()
-	var village = Village.new()
+	call_deferred("generate")
+
+func generate():
+	terrain = Terrain_Scene.instance()
 	var reqs = []
 	
-	terrain.generate(mesh)
+#	get_tree().get_root().call_deferred("add_child", terrain)
+	get_tree().get_root().add_child(terrain)
 	
 	for i in NUM_VILLAGES:
 		var vreq = VillageReq.new(510.0,10,"normal")
 		reqs.append(vreq)
-	
-	var i = 0
 	var plots = terrain.get_locations(reqs)
-	var placements = village.gen_villages(plots)
-	for place in placements:
-		place.global_transform.origin = plots[i].origin
-		print(plots[i].origin)
-		get_tree().get_root().call_deferred("add_child", place)
-		i += 1
-#	terrain.place_villages(placements)
+	place_villages(plots)
+	
 
-func _input(event):
-	if event is InputEventKey:
-		if Input.is_action_just_pressed("ui_focus_next"):
-			terrain.generate(mesh)
+func place_villages(plots: Array):
+#	get_tree().get_root().add_child(terrain)
+	for plot in plots:
+		var placement = Village.gen_village(plot)
+#		get_tree().get_root().add_child(placement)
+#		placement.transform.origin = plot.origin
+		terrain.place_village(placement, plot)
+
+#func _input(event):
+#	if event is InputEventKey:
+#		if Input.is_action_just_pressed("ui_focus_next"):
+#			terrain.generate(mesh)
 
