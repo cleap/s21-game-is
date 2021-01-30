@@ -1,20 +1,21 @@
 extends Spatial
 
-const NUM_VILLAGES = 3
+const NUM_VILLAGES = 10
 const Terrain_Scene = preload("res://Terrain.tscn")
 var terrain: Terrain
 
 # Called when the node enters the scene tree for the first time.
 
 func _ready():
-	call_deferred("generate")
+#	call_deferred("generate")
+	generate()
 
 func generate():
 	terrain = Terrain_Scene.instance()
 	var reqs = []
 	
-#	get_tree().get_root().call_deferred("add_child", terrain)
-	get_tree().get_root().add_child(terrain)
+	get_tree().get_root().call_deferred("add_child", terrain)
+#	get_tree().get_root().add_child(terrain)
 	
 	for i in NUM_VILLAGES:
 		var vreq = VillageReq.new(510.0,10,"normal")
