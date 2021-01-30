@@ -2,7 +2,6 @@ extends Spatial
 class_name Terrain
 
 const Tile = preload("res://WrappingMap/Tile.gd")
-onready var texture = get_node("Camera/Texture")
 onready var mesh : MeshInstance = get_node("MeshInstance")
 
 const  MAP_WIDTH = 32 #256
@@ -30,12 +29,14 @@ export var noise : OpenSimplexNoise
 var min_val : float
 var max_val : float
 
-func _init():
-	noise = OpenSimplexNoise.new()
-	noise.period = 150.0
-	randomize()
+#func _ready():
+#	noise = OpenSimplexNoise.new()
+#	noise.period = 150.0
+#	randomize()
 
 func _ready():
+	noise = OpenSimplexNoise.new()
+	noise.period = 150.0
 	randomize()
 	generate(mesh)
 
@@ -170,8 +171,13 @@ func get_locations(reqs: Array):
 			origin))
 	return arr
 
-func place_villages(villages: Array):
-	pass
+func place_village(placement: Spatial, plot: VillagePlot):
+#		get_tree().get_root().call_deferred("add_child", placement)
+		get_tree().get_root().add_child(placement)
+		placement.global_transform.origin = Vector3(-200.0, 0.0, 200.0) #plot.origin
+		print("Plot origin: %s" % plot.origin)
+		print("Placement origin %s" % placement.transform.origin)
+		print("---")
 
 func _input(event):
 	if event.is_action_pressed("ui_focus_next"):
