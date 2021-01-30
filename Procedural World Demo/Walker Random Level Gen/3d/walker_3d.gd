@@ -46,7 +46,8 @@ func generate_level(size: String):
 		box.transform.origin = Vector3(location.x - WIDTH/2.0, 0.0, location.y - HEIGHT/2.0) * 2.0
 		box.set_surface_material(0, mat)
 		boxes.append(box)
-		get_tree().get_root().call_deferred("add_child", box)
+		add_child(box)
+#		get_tree().get_root().call_deferred("add_child", box)
 
 func reload_level():
 	for box in boxes:

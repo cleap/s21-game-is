@@ -173,8 +173,8 @@ func get_locations(reqs: Array):
 
 func place_village(placement: Spatial, plot: VillagePlot):
 #		get_tree().get_root().call_deferred("add_child", placement)
-		get_tree().get_root().add_child(placement)
-		placement.global_transform.origin = Vector3(-200.0, 0.0, 200.0) #plot.origin
+		add_child(placement)
+		placement.translate(plot.origin)
 		print("Plot origin: %s" % plot.origin)
 		print("Placement origin %s" % placement.transform.origin)
 		print("---")
