@@ -156,7 +156,19 @@ func generate_mesh(mesh: MeshInstance):
 #	col.set_shape(col_shape)
 
 func get_locations(reqs: Array):
-	return []
+	var arr = []
+	for req in reqs:
+		var width = sqrt(req.area)
+		var origin: Vector3 = Vector3.ZERO
+		origin.x = (randf() - 0.5) * MAP_WIDTH * TILE_WIDTH
+		origin.z = (randf() - 0.5) * MAP_WIDTH * TILE_WIDTH
+		origin.y = 10.0
+		arr.append(VillagePlot.new(
+			Rect2(Vector2.ZERO, Vector2(width, width)),
+			req.num_houses, 
+			req.type,
+			origin))
+	return arr
 
 func place_villages(villages: Array):
 	pass
