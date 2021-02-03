@@ -2,7 +2,8 @@ extends Spatial
 class_name TerrainChunk
 
 const Tile = preload("res://WrappingMap/Tile.gd")
-onready var mesh : MeshInstance = get_node("MeshInstance")
+onready var mesh: MeshInstance = get_node("MeshInstance")
+onready var col: CollisionShape = get_node("StaticBody/CollisionShape")
 
 const DEEP_WATER = 0.2
 const SHALLOW_WATER = 0.4
@@ -167,6 +168,6 @@ func generate_mesh(noise: OpenSimplexNoise, x0: float, y0: float,
 	mesh.set_mesh(triangles)
 #	mesh.set_surface_material(0, load("res://WrappingMap/map_shader.tres"))
 	
-#	var col_shape: ConcavePolygonShape = ConcavePolygonShape.new()
-#	col_shape.set_faces(triangles.get_faces())
-#	col.set_shape(col_shape)
+	var col_shape: ConcavePolygonShape = ConcavePolygonShape.new()
+	col_shape.set_faces(triangles.get_faces())
+	col.set_shape(col_shape)

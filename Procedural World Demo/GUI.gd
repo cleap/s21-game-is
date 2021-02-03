@@ -1,8 +1,11 @@
-extends NinePatchRect
+extends CanvasLayer
 
 
 onready var map: TextureRect = get_node("TextureRect")
-var terrain
+onready var marker: Sprite = get_node("TextureRect/Sprite")
+onready var player = get_node("../Player")
+
+var terrain: Terrain
 
 var found_terrain = false
 
@@ -12,3 +15,8 @@ func _process(delta):
 		terrain = get_node("../Terrain")
 		found_terrain = true
 		map.texture = terrain.map_texture
+	if found_terrain:
+		var pos = Vector2(player.transform.origin.x, player.transform.origin.z)
+		pos /= terrain.CHUNK_WIDTH * terrain.NUM_CHUNKS
+		pos *= map.rect_size.x
+		marker.position = pos

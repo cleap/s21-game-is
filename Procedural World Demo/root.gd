@@ -3,7 +3,7 @@ extends Spatial
 const NUM_VILLAGES = 10
 const Terrain_Scene = preload("res://WrappingMap/Terrain.tscn")
 
-onready var player = get_node("FlyCam")
+onready var player = get_node("Player")
 var terrain
 
 # Called when the node enters the scene tree for the first time.
