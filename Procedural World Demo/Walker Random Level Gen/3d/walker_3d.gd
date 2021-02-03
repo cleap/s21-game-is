@@ -81,7 +81,7 @@ func generate_level(plot: VillagePlot):
 			
 			box.transform.origin = Vector3(room.position.x, 0.0, room.position.y)
 			box.scale = Vector3(room.size.x/2.0, 1.0, room.size.y/2.0)
-			box.set_surface_material(0, mat)
+#			box.set_surface_material(0, mat)
 			box.set_mesh(CubeMesh.new())
 			box.set_surface_material(0, mat)
 			boxes.append(box)

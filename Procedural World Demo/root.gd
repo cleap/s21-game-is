@@ -4,6 +4,8 @@ const NUM_VILLAGES = 10
 const Terrain_Scene = preload("res://WrappingMap/Terrain.tscn")
 var terrain: Terrain
 
+onready var player = get_node("FlyCam")
+
 # Called when the node enters the scene tree for the first time.
 
 func _ready():
@@ -34,6 +36,9 @@ func place_villages(plots: Array):
 #		get_tree().get_root().add_child(placement)
 #		placement.transform.origin = plot.origin
 		terrain.place_village(placement, plot)
+
+#func _process(delta):
+#	terrain.update_chunks(player.transform.origin)
 
 func _input(event):
 	if event is InputEventKey:

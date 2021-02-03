@@ -23,11 +23,27 @@ const SNOW_COLOR = Color.white
 var min_val : float
 var max_val : float
 
-#func _ready():
-#	noise = OpenSimplexNoise.new()
-#	noise.period = 150.0
-#	randomize()
+var mutex = Mutex.new()
 
+var current_lod: int
+
+func get_current_lod():
+	mutex.lock()
+	var val = current_lod
+	mutex.unlock()
+	return val
+
+func _ready():
+	mutex.lock()
+	visible = false
+	current_lod = 0
+	mutex.unlock()
+
+func unload():
+	mutex.lock()
+	visible = false
+	current_lod = 0
+	mutex.unlock()
 
 # From https://docs.godotengine.org/en/stable/tutorials/math/beziers_and_curves.html
 func _cubic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, p3: Vector2, t: float):
@@ -69,9 +85,20 @@ func get_noise_val(noise: OpenSimplexNoise, x: float, y: float, map_width: float
 	return val
 
 func generate(noise: OpenSimplexNoise, x0: float, y0: float, chunk_width: int, num_chunks: int, lod: int):
+	
+	if lod == 0:
+		unload()
+		return
+	elif lod == current_lod:
+		visible = true
+		return
+	visible = true
 	var tiles: Array = []
 	min_val = INF
 	max_val = -INF
+	mutex.lock()
+	current_lod = lod
+	print("(%f, %f): New lod: %d"%[x0 / chunk_width, y0 / chunk_width, lod])
 	
 	var temp1 = []
 	for i in lod:
@@ -94,11 +121,10 @@ func generate(noise: OpenSimplexNoise, x0: float, y0: float, chunk_width: int, n
 			val = (val - min_val) / (max_val - min_val)
 			temp.append(Tile.new(get_color(val)))
 		tiles.append(temp)
-	print(max_val)
-	print(min_val)
 	
 #	texture.update(MAP_WIDTH, MAP_HEIGHT, tiles)
 	generate_mesh(noise, x0, y0, chunk_width, num_chunks, lod)
+	mutex.unlock()
 
 func get_color(val: float):
 	var color: Color
