@@ -84,7 +84,8 @@ func get_noise_val(noise: OpenSimplexNoise, x: float, y: float, map_width: float
 	var val = noise.get_noise_4d(rad*cos(theta), rad*sin(theta), rad*cos(phi), rad*sin(phi))
 	return val
 
-func generate(noise: OpenSimplexNoise, x0: float, y0: float, chunk_width: int, num_chunks: int, lod: int):
+func generate(noise: OpenSimplexNoise, x0: float, y0: float, chunk_width: int, 
+	num_chunks: int, lod: int, min_val: float, max_val: float):
 	
 	if lod == 0:
 		unload()
@@ -93,37 +94,12 @@ func generate(noise: OpenSimplexNoise, x0: float, y0: float, chunk_width: int, n
 		visible = true
 		return
 	visible = true
-	var tiles: Array = []
-	min_val = INF
-	max_val = -INF
 	mutex.lock()
 	current_lod = lod
 	print("(%f, %f): New lod: %d"%[x0 / chunk_width, y0 / chunk_width, lod])
 	
-	var temp1 = []
-	for i in lod:
-		var x = (x0 + i*chunk_width/float(lod))
-		var temp2 = []
-		for j in lod:
-			var y = (y0 + j*chunk_width/float(lod))
-			var val = get_noise_val(noise, x, y, chunk_width * num_chunks)
-			if val < min_val:
-				min_val = val
-			if val > max_val:
-				max_val = val
-			temp2.append(val)
-		temp1.append(temp2)
-	
-	for x in lod:
-		var temp: Array = []
-		for y in lod:
-			var val = temp1[x][y]
-			val = (val - min_val) / (max_val - min_val)
-			temp.append(Tile.new(get_color(val)))
-		tiles.append(temp)
-	
 #	texture.update(MAP_WIDTH, MAP_HEIGHT, tiles)
-	generate_mesh(noise, x0, y0, chunk_width, num_chunks, lod)
+	generate_mesh(noise, x0, y0, chunk_width, num_chunks, lod, min_val, max_val)
 	mutex.unlock()
 
 func get_color(val: float):
@@ -144,7 +120,7 @@ func get_color(val: float):
 		color = SNOW_COLOR
 	return color
 
-func get_square(noise: OpenSimplexNoise, x, y, delta, map_width):
+func get_square(noise: OpenSimplexNoise, x, y, delta, map_width, min_val, max_val):
 	var pts = []
 	var colors = []
 	for i in range(2):
@@ -152,14 +128,15 @@ func get_square(noise: OpenSimplexNoise, x, y, delta, map_width):
 		for j in range(2):
 			var new_z = y + j*delta
 			var val = get_noise_val(noise, new_x, new_z, map_width)
-#			val = (val - min_val) / (max_val - min_val)
-			val = val * 0.5 + 0.5
+			val = (val - min_val) / (max_val - min_val)
+#			val = val * 0.5 + 0.5
 			colors.push_front(get_color(val))
 			var origin = Vector3(new_x, get_height(val), new_z)
 			pts.push_front(origin)
 	return [pts, colors]
 
-func generate_mesh(noise: OpenSimplexNoise, x0: float, y0: float, chunk_width: float, num_chunks: int, lod: int):
+func generate_mesh(noise: OpenSimplexNoise, x0: float, y0: float, 
+	chunk_width: float, num_chunks: int, lod: int, min_val: float, max_val: float):
 	var st: SurfaceTool = SurfaceTool.new()
 	
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
@@ -167,7 +144,7 @@ func generate_mesh(noise: OpenSimplexNoise, x0: float, y0: float, chunk_width: f
 		var x = (x0 + i*chunk_width/float(lod))
 		for j in lod:
 			var y = (y0 + j*chunk_width/float(lod))
-			var tmp = get_square(noise, x, y, chunk_width/float(lod), chunk_width*num_chunks)
+			var tmp = get_square(noise, x, y, chunk_width/float(lod), chunk_width*num_chunks, min_val, max_val)
 			var square = tmp[0]
 			var colors = tmp[1]
 			
