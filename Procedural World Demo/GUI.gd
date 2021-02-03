@@ -20,3 +20,4 @@ func _process(delta):
 		pos /= terrain.CHUNK_WIDTH * terrain.NUM_CHUNKS
 		pos *= map.rect_size.x
 		marker.position = pos
+		marker.rotation = -player.rotation.y
