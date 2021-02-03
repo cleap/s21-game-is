@@ -1,7 +1,7 @@
 extends Spatial
 
 const NUM_VILLAGES = 10
-const Terrain_Scene = preload("res://Terrain.tscn")
+const Terrain_Scene = preload("res://WrappingMap/Terrain.tscn")
 var terrain: Terrain
 
 # Called when the node enters the scene tree for the first time.
@@ -32,8 +32,8 @@ func place_villages(plots: Array):
 #		placement.transform.origin = plot.origin
 		terrain.place_village(placement, plot)
 
-#func _input(event):
-#	if event is InputEventKey:
-#		if Input.is_action_just_pressed("ui_focus_next"):
-#			terrain.generate(mesh)
+func _input(event):
+	if event is InputEventKey:
+		if Input.is_action_just_pressed("ui_focus_next"):
+			terrain.generate()
 
