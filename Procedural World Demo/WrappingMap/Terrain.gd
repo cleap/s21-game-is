@@ -7,7 +7,7 @@ var chunks: Array # An array of the lods different chunks are loaded at
 export var noise : OpenSimplexNoise = OpenSimplexNoise.new()
 
 const CHUNK_WIDTH = 256
-const NUM_CHUNKS = 32
+const NUM_CHUNKS = 16
 const MAP_WIDTH = 256
 const LODS = [0, 32, 64, 128]
 const RENDER_DISTANCE = CHUNK_WIDTH
@@ -68,6 +68,7 @@ func place_village(placement: Spatial, plot: VillagePlot):
 #		get_tree().get_root().call_deferred("add_child", placement)
 		add_child(placement)
 		placement.translate(plot.origin)
+		placement.scale = Vector3(10.0, 20.0, 10.0)
 		print("Plot origin: %s" % plot.origin)
 		print("Placement origin %s" % placement.transform.origin)
 		print("---")
@@ -120,13 +121,13 @@ func generate():
 			for item in col:
 				item.queue_free()
 	chunks = []
-	for i in 4:
+	for i in NUM_CHUNKS:
 		var temp = []
-		for j in 4:
+		for j in NUM_CHUNKS:
 			var chunk: TerrainChunk = Chunk_Scene.instance()
 			temp.append(chunk)
 			add_child(chunk)
-			chunk.generate(noise, i*CHUNK_WIDTH, j*CHUNK_WIDTH, CHUNK_WIDTH, NUM_CHUNKS, 128, min_val, max_val)
+			chunk.generate(noise, i*CHUNK_WIDTH, j*CHUNK_WIDTH, CHUNK_WIDTH, NUM_CHUNKS, 32, min_val, max_val)
 		chunks.append(temp)
 
 func update_texture(arr):

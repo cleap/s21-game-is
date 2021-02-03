@@ -62,6 +62,7 @@ func get_height(val : float):
 	
 	var sand_mult = 20.0
 	var grass_mult = 40.0
+	var mountain_mult = 200.0
 	
 	var BASE = Vector2(SHALLOW_WATER, 0.0)
 	var BEACH_TOP = Vector2(SAND, SAND*sand_mult)
@@ -76,7 +77,7 @@ func get_height(val : float):
 		return (val - SHALLOW_WATER) * sand_mult
 	elif val <= FOREST:
 		return (val - SAND) * grass_mult + (SAND - SHALLOW_WATER) * sand_mult
-	return (pow(10.0*val, (val - FOREST)) - 1.0) * 50.0 + (FOREST - SAND) * grass_mult + (SAND - SHALLOW_WATER) * sand_mult
+	return (pow(10.0*val, (val - FOREST)) - 1.0) * mountain_mult + (FOREST - SAND) * grass_mult + (SAND - SHALLOW_WATER) * sand_mult
 
 func get_noise_val(noise: OpenSimplexNoise, x: float, y: float, map_width: float):
 	var rad = 2.0*PI*map_width
