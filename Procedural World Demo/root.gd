@@ -40,8 +40,8 @@ func place_villages(plots: Array):
 #func _process(delta):
 #	terrain.update_chunks(player.transform.origin)
 
-func _input(event):
-	if event is InputEventKey:
-		if Input.is_action_just_pressed("ui_focus_next"):
-			terrain.generate()
+#func _input(event):
+#	if event is InputEventKey:
+#		if Input.is_action_just_pressed("ui_focus_next"):
+#			terrain.generate()
 

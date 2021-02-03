@@ -13,7 +13,7 @@ transform = Transform( 0.540651, 0.728541, -0.420623, 0, 0.5, 0.866025, 0.841247
 light_energy = 0.91
 
 [node name="FlyCam" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 50, 200 )
 script = ExtResource( 2 )
 
 [node name="Camera" type="Camera" parent="FlyCam"]

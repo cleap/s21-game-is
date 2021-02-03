@@ -110,10 +110,9 @@ func get_color(val: float):
 		color = SHALLOW_COLOR
 	elif val <= SAND:
 		color = SAND_COLOR
-	elif val <= GRASS:
-		color = GRASS_COLOR
 	elif val <= FOREST:
-		color = FOREST_COLOR
+		var amt = (val - SAND) / (FOREST - SAND)
+		color = lerp(GRASS_COLOR, FOREST_COLOR, amt)
 	elif val <= ROCK:
 		color = ROCK_COLOR
 	else:

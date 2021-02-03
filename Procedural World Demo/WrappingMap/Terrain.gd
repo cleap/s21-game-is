@@ -6,15 +6,15 @@ var chunks: Array # An array of the lods different chunks are loaded at
 
 export var noise : OpenSimplexNoise = OpenSimplexNoise.new()
 
-const CHUNK_WIDTH = 64
-const NUM_CHUNKS = 5
+const CHUNK_WIDTH = 256
+const NUM_CHUNKS = 32
 const MAP_WIDTH = 256
 const LODS = [0, 32, 64, 128]
 const RENDER_DISTANCE = CHUNK_WIDTH
 const RENDER_DISTANCE2 = RENDER_DISTANCE*RENDER_DISTANCE
 
 func _ready():
-	noise.period = 1000.0
+	noise.period = 25000.0
 	randomize()
 	noise.seed = randi()
 	generate()
@@ -30,7 +30,7 @@ func load_chunk(i: int, j: int, lod: int):
 		chunks[i2][j2].unload()
 	elif lod != prev:
 		print("(%d, %d): Previous lod: %d | New lod: %d" % [i, j, prev, lod])
-		chunks[i2][j2].generate(noise, i*CHUNK_WIDTH, j*CHUNK_WIDTH, CHUNK_WIDTH, NUM_CHUNKS, 64)
+		chunks[i2][j2].generate(noise, i*CHUNK_WIDTH, j*CHUNK_WIDTH, CHUNK_WIDTH, NUM_CHUNKS, 256)
 
 func update_chunks(player: Vector3):
 	for i in NUM_CHUNKS:
@@ -114,18 +114,19 @@ func generate():
 			temp1[x][y] = (val - min_val) / (max_val - min_val)
 	update_texture(temp1)
 	
+	# TODO: put this in update_chunks
 	if(chunks.size() > 0):
 		for col in chunks:
 			for item in col:
 				item.queue_free()
 	chunks = []
-	for i in NUM_CHUNKS:
+	for i in 4:
 		var temp = []
-		for j in NUM_CHUNKS:
+		for j in 4:
 			var chunk: TerrainChunk = Chunk_Scene.instance()
 			temp.append(chunk)
 			add_child(chunk)
-			chunk.generate(noise, i*CHUNK_WIDTH, j*CHUNK_WIDTH, CHUNK_WIDTH, NUM_CHUNKS, 64, min_val, max_val)
+			chunk.generate(noise, i*CHUNK_WIDTH, j*CHUNK_WIDTH, CHUNK_WIDTH, NUM_CHUNKS, 128, min_val, max_val)
 		chunks.append(temp)
 
 func update_texture(arr):
@@ -157,10 +158,12 @@ func get_color(val: float):
 		color = SHALLOW_COLOR
 	elif val <= SAND:
 		color = SAND_COLOR
-	elif val <= GRASS:
-		color = GRASS_COLOR
+#	elif val <= GRASS:
+#		color = GRASS_COLOR
 	elif val <= FOREST:
-		color = FOREST_COLOR
+		var amt = (val - SAND) / (FOREST - SAND)
+		color = lerp(GRASS_COLOR, FOREST_COLOR, amt)
+#		color = FOREST_COLOR
 	elif val <= ROCK:
 		color = ROCK_COLOR
 	else:
