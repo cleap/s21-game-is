@@ -2,7 +2,9 @@ extends Spatial
 
 const NUM_VILLAGES = 10
 const Terrain_Scene = preload("res://WrappingMap/Terrain.tscn")
-var terrain: Terrain
+
+onready var player = get_node("FlyCam")
+var terrain
 
 # Called when the node enters the scene tree for the first time.
 
@@ -16,7 +18,7 @@ func generate():
 	var v_size = ["small", "normal", "large"]
 	
 	
-	get_tree().get_root().call_deferred("add_child", terrain)
+	call_deferred("add_child", terrain)
 #	get_tree().get_root().add_child(terrain)
 	
 	for i in NUM_VILLAGES:
@@ -34,6 +36,9 @@ func place_villages(plots: Array):
 #		get_tree().get_root().add_child(placement)
 #		placement.transform.origin = plot.origin
 		terrain.place_village(placement, plot)
+
+#func _process(delta):
+#	terrain.update_chunks(player.transform.origin)
 
 func _input(event):
 	if event is InputEventKey:
