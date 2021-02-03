@@ -13,12 +13,15 @@ func _ready():
 func generate():
 	terrain = Terrain_Scene.instance()
 	var reqs = []
+	var v_size = ["small", "normal", "large"]
+	
 	
 	get_tree().get_root().call_deferred("add_child", terrain)
 #	get_tree().get_root().add_child(terrain)
 	
 	for i in NUM_VILLAGES:
-		var vreq = VillageReq.new(510.0,10,"normal")
+		var size = v_size[randi() % v_size.size()]
+		var vreq = VillageReq.new(510.0,10,size)
 		reqs.append(vreq)
 	var plots = terrain.get_locations(reqs)
 	place_villages(plots)

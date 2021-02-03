@@ -9,9 +9,9 @@ class_name Cave
 #var borders = Rect2(1, 1, WIDTH, HEIGHT)
 var boxes: Array = []
 
-func _ready():
-	randomize()
-	generate_level("normal")
+#func _ready(plot: VillagePlot):
+#	randomize()
+#	generate_level("normal")
 
 func rect_collide(r1, r2):
 	var x1 = r1.position.x
@@ -28,7 +28,8 @@ func rect_collide(r1, r2):
 	y1 < y2 + height2 + 2.5 and 
 	y1 + height1 + 2.5 > y2)
 
-func generate_level(size: String):
+func generate_level(plot: VillagePlot):
+	var size = plot.type
 	var these_steps = 0
 	var width = 0.0
 	var height = 0.0
