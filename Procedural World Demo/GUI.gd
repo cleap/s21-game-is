@@ -1,8 +1,10 @@
 extends CanvasLayer
 
 
-onready var map: TextureRect = get_node("TextureRect")
-onready var marker: Sprite = get_node("TextureRect/Sprite")
+onready var terrain_map: TextureRect = get_node("TerrainRect")
+onready var heat_map: TextureRect = get_node("TerrainRect/HeatRect")
+onready var moisture_map: TextureRect = get_node("TerrainRect/MoistureRect")
+onready var marker: Sprite = get_node("TerrainRect/Sprite")
 onready var player = get_node("../Player")
 
 var terrain: Terrain
@@ -14,10 +16,12 @@ func _process(delta):
 	if not found_terrain and has_node("../Terrain"):
 		terrain = get_node("../Terrain")
 		found_terrain = true
-		map.texture = terrain.map_texture
+		terrain_map.texture = terrain.terrain_texture
+		heat_map.texture = terrain.heat_texture
+		moisture_map.texture = terrain.moisture_texture
 	if found_terrain:
 		var pos = Vector2(player.transform.origin.x, player.transform.origin.z)
 		pos /= terrain.CHUNK_WIDTH * terrain.NUM_CHUNKS
-		pos *= map.rect_size.x
+		pos *= terrain_map.rect_size.x
 		marker.position = pos
 		marker.rotation = -player.rotation.y

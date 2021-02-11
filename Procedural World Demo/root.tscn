@@ -43,7 +43,7 @@ material/0 = null
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 5 )
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+[node name="TerrainRect" type="TextureRect" parent="CanvasLayer"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -167.0
@@ -53,7 +53,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/TextureRect"]
+[node name="Sprite" type="Sprite" parent="CanvasLayer/TerrainRect"]
 position = Vector2( -23.1893, 15.4597 )
 scale = Vector2( 0.02, 0.02 )
 texture = ExtResource( 4 )
+
+[node name="HeatRect" type="TextureRect" parent="CanvasLayer/TerrainRect"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -423.0
+margin_right = -255.999
+margin_bottom = 167.0
+grow_horizontal = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MoistureRect" type="TextureRect" parent="CanvasLayer/TerrainRect"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -167.0
+margin_top = 256.0
+margin_bottom = 423.0
+grow_horizontal = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
