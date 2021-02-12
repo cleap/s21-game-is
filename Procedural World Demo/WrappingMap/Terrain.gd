@@ -8,9 +8,11 @@ export var terrain_noise : OpenSimplexNoise = OpenSimplexNoise.new()
 export var moisture_noise : OpenSimplexNoise = OpenSimplexNoise.new()
 export var heat_noise : OpenSimplexNoise = OpenSimplexNoise.new()
 
-const CHUNK_WIDTH = 256
+const TILES_PER_CHUNK = 16
+const TILE_WIDTH = 24
+const CHUNK_WIDTH = TILES_PER_CHUNK * TILE_WIDTH
 const NUM_CHUNKS = 16
-const MAP_WIDTH = 256
+const MAP_WIDTH = NUM_CHUNKS * TILES_PER_CHUNK
 const LODS = [0, 32, 64, 128]
 const RENDER_DISTANCE = CHUNK_WIDTH
 const RENDER_DISTANCE2 = RENDER_DISTANCE*RENDER_DISTANCE
@@ -73,12 +75,13 @@ func get_locations(reqs: Array):
 
 func place_village(placement: Spatial, plot: VillagePlot):
 #		get_tree().get_root().call_deferred("add_child", placement)
-		add_child(placement)
-		placement.translate(plot.origin)
-		placement.scale = Vector3(10.0, 20.0, 10.0)
-		print("Plot origin: %s" % plot.origin)
-		print("Placement origin %s" % placement.transform.origin)
-		print("---")
+	return
+	add_child(placement)
+	placement.translate(plot.origin)
+	placement.scale = Vector3(10.0, 20.0, 10.0)
+	print("Plot origin: %s" % plot.origin)
+	print("Placement origin %s" % placement.transform.origin)
+	print("---")
 
 var terrain_texture: ImageTexture
 var heat_texture: ImageTexture
@@ -158,10 +161,10 @@ func generate():
 	update_textures()
 	
 #	# TODO: put this in update_chunks
-	if(chunks.size() > 0):
-		for col in chunks:
-			for item in col:
-				item.queue_free()
+#	if(chunks.size() > 0):
+#		for col in chunks:
+#			for item in col:
+#				item.queue_free()
 	chunks = []
 	for i in NUM_CHUNKS:
 		var temp = []
@@ -169,7 +172,9 @@ func generate():
 			var chunk: TerrainChunk = Chunk_Scene.instance()
 			temp.append(chunk)
 			add_child(chunk)
-			chunk.generate(terrain_noise, i*CHUNK_WIDTH, j*CHUNK_WIDTH, CHUNK_WIDTH, NUM_CHUNKS, 16, min_height, max_height)
+			chunk.init(TILE_WIDTH, TILES_PER_CHUNK, MAP_WIDTH, terrain_noise, 
+				i*TILES_PER_CHUNK, j*TILES_PER_CHUNK, tiles, min_height, max_height)
+			chunk.generate_mesh(2)
 		chunks.append(temp)
 
 func update_textures():
@@ -204,6 +209,11 @@ func get_noise_val(noise: OpenSimplexNoise, x: float, y: float):
 	var rad = 2.0*PI*map_width
 	var theta = 2.0*PI*x/map_width
 	var phi = 2.0*PI*y/map_width
-	var val = noise.get_noise_4d(rad*cos(theta), rad*sin(theta), rad*cos(phi), rad*sin(phi))
+	var val = noise.get_noise_4d(
+		rad*cos(theta), 
+		rad*sin(theta), 
+		rad*cos(phi), 
+		rad*sin(phi)
+		)
 	return val
 
