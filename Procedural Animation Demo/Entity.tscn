@@ -17,7 +17,28 @@ transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1, 0
 shape = SubResource( 1 )
 
 [node name="Leg" parent="." instance=ExtResource( 1 )]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0.694878, 0.800104, 0.406493 )
+transform = Transform( 0.200189, 0, 0.979757, 0, 1, 0, -0.979757, 0, 0.200189, 0.695, 0.8, 0.519 )
+
+[node name="Leg2" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.257824, 0, 0.966192, 0, 1, 0, -0.966192, 0, -0.257824, 0.695, 0.8, -0.483832 )
+
+[node name="Leg3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.840453, 0, 0.541884, 0, 1, 0, -0.541884, 0, 0.840453, 0.695, 0.8, 0.881495 )
+
+[node name="Leg4" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.749152, 0, 0.662398, 0, 1, 0, -0.662398, 0, -0.749152, 0.695, 0.8, -0.951824 )
+
+[node name="Leg5" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.595832, 0, -0.803109, 0, 1, 0, -0.803109, 0, -0.595832, -0.591071, 0.8, -0.903052 )
+
+[node name="Leg6" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.338951, 0, -0.940804, 0, 1, 0, -0.940804, 0, -0.338951, -0.59588, 0.8, -0.317093 )
+
+[node name="Leg7" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.400125, 0, -0.916461, 0, 1, 0, -0.916461, 0, 0.400125, -0.62378, 0.8, 0.222827 )
+
+[node name="Leg8" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.589422, 0, -0.807825, 0, 1, 0, -0.807825, 0, 0.589422, -0.555105, 0.8, 0.730591 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 0.701142, 0, 0, 0, 0.300979, 0, 0, 0, 1, 0, 0.801296, 0 )

@@ -56,7 +56,7 @@ mesh = SubResource( 2 )
 material/0 = SubResource( 7 )
 
 [node name="NextTarget" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.524, -1, 1.356 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.89975, -1.013, 1.314 )
 
 [node name="MeshInstance" type="MeshInstance" parent="NextTarget"]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )

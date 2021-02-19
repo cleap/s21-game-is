@@ -8,9 +8,9 @@ onready var next_target_point = get_node("NextTarget")
 
 const SEG_LEN = 1
 
-var step_distance = 1.0 * 1.0
+var step_distance = pow(1.5, 2)
 var step_height = 0.5
-var step_speed = 0.2
+var step_speed = 6.0
 var tip: Vector3
 
 var target: Vector3
@@ -20,7 +20,7 @@ var amt: float
 var segments: Array
 
 func _ready():
-	target = target_point.transform.origin
+	target = target_point.global_transform.origin
 	tip = target 
 	segments = [
 		upper_leg,
@@ -29,25 +29,23 @@ func _ready():
 	]
 
 func _physics_process(delta):
-	update(next_target_point.transform.origin, delta)
+	update(next_target_point.global_transform.origin, delta)
 
 func update(next_target: Vector3, delta: float):
 	# Solve ik
-	
-	solve_ik(get_target(next_target, delta))
+	var new_target = global_transform.xform_inv(get_target(next_target, delta))
+	solve_ik(new_target)
 
 func get_target(next_target: Vector3, delta: float):
 	if (next_target - target).length_squared() >= step_distance:
 		target = next_target
-		target_point.transform.origin = target
-		
-		var diff = (tip - target)
-		origin = target + diff
-		
+		origin = tip
 		amt = 0.0
+	
+	target_point.global_transform.origin = target
 	if amt > 1.0:
 		return target
-	amt += 1.0 * delta
+	amt += step_speed * delta
 	var x1 = 0
 	var y1 = 0
 	
@@ -84,8 +82,13 @@ func solve_ik(target: Vector3):
 	update_tip(angle_y)
 
 func ik_helper(target: Vector3, index: int, angle_y: float):
+	segments[index].rotation.y = angle_y
 	var diff = target - segments[index].transform.origin
-	diff.x = 0
+	diff = Vector3(
+		0.0,
+		diff.y,
+		diff.z/cos(angle_y)
+	)
 	diff = diff.normalized()
 	var angle = -acos(diff.z)
 	if diff.y < 0.0:
@@ -116,3 +119,4 @@ func update_tip(angle_y: float):
 	tip.x += SEG_LEN * cos(-segments[i].rotation.x) * sin(angle_y)
 	tip.z += SEG_LEN * cos(-segments[i].rotation.x) * cos(angle_y)
 	tip.y += SEG_LEN * sin(-segments[i].rotation.x)
+	tip = global_transform.xform(tip)
