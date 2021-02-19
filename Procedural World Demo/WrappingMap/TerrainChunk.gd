@@ -110,9 +110,20 @@ func get_square(noise: OpenSimplexNoise, x, y, delta, min_val, max_val, tile):
 			var new_z = y + j*delta
 			var val = get_noise_val(new_x, new_z)
 			val = (val - min_val) / (max_val - min_val)
-#			val = val * 0.5 + 0.5
+			val = val * 0.5 + 0.5
 			colors.push_front(tile.get_terrain_color())
 			var origin = Vector3(new_x, get_height(val, tile), new_z)
+			if false:
+				var rad = 2.0*PI*MAP_WIDTH
+				var theta = 2.0*PI*new_x/MAP_WIDTH
+				var phi = 2.0*PI*new_z/MAP_WIDTH - PI
+				val = get_height(val, tile) / 1000.0 + 1.0
+				rad = 1000.0
+				origin = Vector3(
+					rad*(2.0 + cos(phi)*val)*cos(theta),
+					rad*val*sin(phi),
+					rad*(2.0 + cos(phi)*val)*sin(theta)
+				)
 			pts.push_front(origin)
 	return [pts, colors]
 

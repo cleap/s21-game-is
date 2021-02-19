@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Leg.gd" type="Script" id=1]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_color = Color( 0, 0.337255, 0.392157, 1 )
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0, 0.670588, 0.780392, 1 )
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0, 0.858824, 1, 1 )
+
+[sub_resource type="SphereMesh" id=2]
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_color = Color( 0.360784, 1, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=8]
+albedo_color = Color( 1, 0.913725, 0, 1 )
+
+[node name="Leg" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="UpperLeg" type="Spatial" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="UpperLeg"]
+transform = Transform( 0.1, 0, 0, 0, -8.14603e-08, -0.1, 0, 0.5, -1.62921e-08, 0, 0, 0.5 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 6 )
+
+[node name="MidLeg" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="MidLeg"]
+transform = Transform( 0.09, 0, 0, 0, -8.14603e-08, -0.09, 0, 0.5, -1.46629e-08, 0, 0, 0.5 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 5 )
+
+[node name="LowerLeg" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="LowerLeg"]
+transform = Transform( 0.08, 0, 0, 0, -8.14603e-08, -0.08, 0, 0.5, -1.30337e-08, 0, 0, 0.5 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 4 )
+
+[node name="Tip" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.738, 0, 2.15 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Tip"]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 7 )
+
+[node name="NextTarget" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.524, -1, 1.356 )
+
+[node name="MeshInstance" type="MeshInstance" parent="NextTarget"]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 8 )
