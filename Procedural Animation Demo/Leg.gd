@@ -6,6 +6,12 @@ onready var lower_leg = get_node("LowerLeg")
 onready var target_point = get_node("Tip")
 onready var next_target_point = get_node("NextTarget")
 
+onready var upper = get_node("UpperSeg")
+onready var mid = get_node("MidSeg")
+onready var lower = get_node("LowerSeg")
+
+var segments: Array
+
 const SEG_LEN = 1
 
 var step_distance = pow(1.5, 2)
@@ -17,15 +23,20 @@ var target: Vector3
 var origin: Vector3
 var amt: float
 
-var segments: Array
+var _segments: Array
 
 func _ready():
 	target = target_point.global_transform.origin
 	tip = target 
-	segments = [
+	_segments = [
 		upper_leg,
 		mid_leg,
 		lower_leg
+	]
+	segments = [ 
+		upper,
+		mid,
+		lower
 	]
 
 func _physics_process(delta):
@@ -71,19 +82,38 @@ func solve_ik(target: Vector3):
 	if diff.x < 0.0:
 		angle_y = -angle_y
 
-	ik_helper(target, len(segments) - 1, angle_y)
-	for j in range(1, len(segments)):
-		var i = len(segments) - j - 1
-		ik_helper(segments[i + 1].transform.origin, i, angle_y)
+#	segments[0].transform.origin = Vector3.ZERO
+#	segments[0].rotation.y = angle_y
+#	segments[1].transform.origin = segments[0].get_tip()
+#	segments[1].transform.origin = segments[1].get_tip()
+#	segments[2].transform.origin = segments[1].get_tip()
+	for segment in segments:
+		segment.rotation.y = angle_y
+
+	segments[len(_segments) - 1].place_tip(target)
+	for j in range(1, len(_segments) - 1):
+		var i = len(_segments) - j - 1
+		segments[i].solve_ik(segments[i + 1].transform.origin, segments[i - 1].rotation)
+	segments[0].solve_ik(segments[1].transform.origin, Vector3.ZERO)
 	
 	segments[0].transform.origin = Vector3.ZERO
-	for i in range(1, len(segments)):
-		fk_helper(i, angle_y)
-	update_tip(angle_y)
+	for i in range(1, len(_segments)):
+		segments[i].place_base(segments[i - 1].get_tip())
+	
+	tip = global_transform.xform(segments[-1].get_tip())
+#	ik_helper(target, len(_segments) - 1, angle_y)
+#	for j in range(1, len(_segments)):
+#		var i = len(_segments) - j - 1
+#		ik_helper(_segments[i + 1].transform.origin, i, angle_y)
+#
+#	_segments[0].transform.origin = Vector3.ZERO
+#	for i in range(1, len(_segments)):
+#		fk_helper(i, angle_y)
+#	update_tip(angle_y)
 
 func ik_helper(target: Vector3, index: int, angle_y: float):
-	segments[index].rotation.y = angle_y
-	var diff = target - segments[index].transform.origin
+	_segments[index].rotation.y = angle_y
+	var diff = target - _segments[index].transform.origin
 	diff = Vector3(
 		0.0,
 		diff.y,
@@ -93,30 +123,30 @@ func ik_helper(target: Vector3, index: int, angle_y: float):
 	var angle = -acos(diff.z)
 	if diff.y < 0.0:
 		angle = -angle
-	segments[index].rotation.x = angle
-	segments[index].rotation.y = angle_y
-	segments[index].transform.origin = target
-	segments[index].transform.origin.x -= SEG_LEN * \
-		cos(-segments[index].rotation.x) * sin(angle_y)
-	segments[index].transform.origin.z -= SEG_LEN * \
-		cos(-segments[index].rotation.x) * cos(angle_y)
-	segments[index].transform.origin.y -= SEG_LEN * \
-		sin(-segments[index].rotation.x)
+	_segments[index].rotation.x = angle
+	_segments[index].rotation.y = angle_y
+	_segments[index].transform.origin = target
+	_segments[index].transform.origin.x -= SEG_LEN * \
+		cos(-_segments[index].rotation.x) * sin(angle_y)
+	_segments[index].transform.origin.z -= SEG_LEN * \
+		cos(-_segments[index].rotation.x) * cos(angle_y)
+	_segments[index].transform.origin.y -= SEG_LEN * \
+		sin(-_segments[index].rotation.x)
 
 func fk_helper(index: int, angle_y: float):
-	segments[index].transform.origin = segments[index - 1].transform.origin
-	segments[index].transform.origin.x += SEG_LEN * \
-		cos(-segments[index-1].rotation.x) * sin(angle_y)
-	segments[index].transform.origin.z += SEG_LEN *  \
-		cos(-segments[index-1].rotation.x) * cos(angle_y)
-	segments[index].transform.origin.y += SEG_LEN *  \
-		sin(-segments[index-1].rotation.x)
-	segments[index].rotation.y = angle_y
+	_segments[index].transform.origin = _segments[index - 1].transform.origin
+	_segments[index].transform.origin.x += SEG_LEN * \
+		cos(-_segments[index-1].rotation.x) * sin(angle_y)
+	_segments[index].transform.origin.z += SEG_LEN *  \
+		cos(-_segments[index-1].rotation.x) * cos(angle_y)
+	_segments[index].transform.origin.y += SEG_LEN *  \
+		sin(-_segments[index-1].rotation.x)
+	_segments[index].rotation.y = angle_y
 
 func update_tip(angle_y: float):
-	var i = len(segments) - 1
-	tip = segments[i].transform.origin
-	tip.x += SEG_LEN * cos(-segments[i].rotation.x) * sin(angle_y)
-	tip.z += SEG_LEN * cos(-segments[i].rotation.x) * cos(angle_y)
-	tip.y += SEG_LEN * sin(-segments[i].rotation.x)
+	var i = len(_segments) - 1
+	tip = _segments[i].transform.origin
+	tip.x += SEG_LEN * cos(-_segments[i].rotation.x) * sin(angle_y)
+	tip.z += SEG_LEN * cos(-_segments[i].rotation.x) * cos(angle_y)
+	tip.y += SEG_LEN * sin(-_segments[i].rotation.x)
 	tip = global_transform.xform(tip)
