@@ -8,5 +8,8 @@
 - [Procedural Animation (PA)](./animation.md)
 - [Procedural Music (PM)](./music.md)
 - [Game Demo](./game.md)
+
 ---
+
 [References](./references.md)
+
