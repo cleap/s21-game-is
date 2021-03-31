@@ -21,16 +21,18 @@ func place_base(target: Vector3):
 	transform.origin = target
 
 func angle_clamp(value: float, minimum: float, maximum):
-	var v_min = fmod(abs(value - minimum), 2.0*PI)
-	var v_max = fmod(abs(value - maximum), 2.0*PI)
-	var min_max = fmod(abs(maximum - minimum), 2.0*PI)
+	value = fmod(value, 2.0*PI)
+	if value < -PI:
+		value += 2.0*PI
+	elif value > PI:
+		value -= 2.0*PI
 	
-	if v_min < min_max and v_max < min_max:
-		return value
-	elif v_min < v_max:
+	if value > maximum:
+		return maximum
+	elif value < minimum:
 		return minimum
 	else:
-		return maximum
+		return value
 
 func solve_ik(target: Vector3, parent_rotation: Vector3):
 	var diff = target - transform.origin
@@ -44,7 +46,7 @@ func solve_ik(target: Vector3, parent_rotation: Vector3):
 	if diff.y < 0.0:
 		angle = -angle
 	
-#	angle = angle_clamp(angle - parent_rotation.x, min_angle, max_angle)
+	angle = angle_clamp(angle - parent_rotation.x, min_angle, max_angle)
 	
-	rotation.x = angle # + parent_rotation.x
+	rotation.x = angle + parent_rotation.x
 	place_tip(target)
